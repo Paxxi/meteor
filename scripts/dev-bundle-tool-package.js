@@ -12,7 +12,7 @@ if (process.platform === "win32") {
   // Duplicated in dev-bundle-server-package.js
   fibersVersion = "https://github.com/meteor/node-fibers/tarball/d519f0c5971c33d99c902dad346b817e84bab001";
 } else {
-  fibersVersion = "1.0.5";
+  fibersVersion = "1.0.10";
 }
 
 var packageJson = {
@@ -22,10 +22,10 @@ var packageJson = {
   dependencies: {
     // Explicit dependency because we are replacing it with a bundled version
     // and we want to make sure there are no dependencies on a higher version
-    npm: "1.4.28",
+    npm: "3.7.5",
     fibers: fibersVersion,
-    "meteor-babel": "0.5.8",
-    "meteor-promise": "0.5.0",
+    "meteor-babel": "0.8.1",
+    "meteor-promise": "0.5.1",
     // For various ES2015 polyfills, such as Map and Set.
     "meteor-ecmascript-runtime": "0.2.6",
     // Not yet upgrading Underscore from 1.5.2 to 1.7.0 (which should be done
@@ -33,32 +33,32 @@ var packageJson = {
     // (and there are backwards-incompatible changes either way).
     underscore: "1.5.2",
     "source-map-support": "https://github.com/meteor/node-source-map-support/tarball/1912478769d76e5df4c365e147f25896aee6375e",
-    semver: "4.1.0",
-    request: "2.47.0",
+    semver: "5.1.0",
+    request: "2.69.0",
     fstream: "https://github.com/meteor/fstream/tarball/d11b9ec4a13918447c8af7559c243c190744dd1c",
-    tar: "1.0.2",
-    kexec: "0.2.0",
-    "source-map": "0.1.43",
+    tar: "2.2.1",
+    kexec: "2.0.2",
+    "source-map": "0.5.3",
     "browserstack-webdriver": "2.41.1",
-    "node-inspector": "0.7.4",
-    chalk: "0.5.1",
-    sqlite3: "3.0.2",
-    netroute: "0.2.5",
-    phantomjs: "1.9.12",
-    "http-proxy": "1.11.1",
-    "wordwrap": "0.0.2",
-    "moment": "2.8.4",
-    "rimraf": "2.4.3",
+    "node-inspector": "0.12.7",
+    chalk: "1.1.1",
+    sqlite3: "3.1.1",
+    netroute: "1.0.2",
+    "phantomjs-prebuilt": "2.1.4",
+    "http-proxy": "1.13.2",
+    "wordwrap": "1.0.0",
+    "moment": "2.11.2",
+    "rimraf": "2.5.2",
     // XXX: When we update this, see if it fixes this Github issue:
     // https://github.com/jgm/CommonMark/issues/276 . If it does, remove the
     // workaround from the tool.
-    "commonmark": "0.15.0",
-    escope: "3.2.0",
+    "commonmark": "0.24.0",
+    escope: "3.5.0",
     // 2.4.0 (more or less, the package.json change isn't committed) plus our PR
     // https://github.com/williamwicks/node-eachline/pull/4
     eachline: "https://github.com/meteor/node-eachline/tarball/ff89722ff94e6b6a08652bf5f44c8fffea8a21da",
-    pathwatcher: "4.1.0",
-    'lru-cache': '2.6.4',
+    pathwatcher: "6.4.0",
+    'lru-cache': '4.0.0',
     // We use our own fork because cordova-lib does not respect a silent
     // option and by defaults outputs all command output to stdout/stderr.
     // We can't download the tarball from GitHub because the package.json is
@@ -67,8 +67,8 @@ var packageJson = {
     // https://github.com/meteor/cordova-lib/tree/respect-silent/cordova-lib
     "cordova-lib": "http://com.meteor.static.s3.amazonaws.com/cordova-lib-1512fc069c7ea51c7a112cf14a8d93d69726a6f7.tar.gz",
     // Also include the Cordova CLI because it is used in tests
-    "cordova": "5.2.0",
-    "ios-sim": "4.1.1",
+    "cordova": "6.0.0",
+    "ios-sim": "5.0.6",
   }
 };
 

@@ -20,9 +20,9 @@ S3_HOST="s3.amazonaws.com/com.meteor.jenkins"
 
 # Update these values after building the dev-bundle-node Jenkins project.
 # Also make sure to update NODE_VERSION in generate-dev-bundle.ps1.
-NODE_VERSION=0.10.41
+NODE_VERSION=5.7.1
 NODE_BUILD_NUMBER=19
-NODE_TGZ="node_${PLATFORM}_v${NODE_VERSION}.tar.gz"
+NODE_TGZ="node_Linux_x86_64_v5.7.1.tar.gz"
 if [ -f "${CHECKOUT_DIR}/${NODE_TGZ}" ] ; then
     tar zxf "${CHECKOUT_DIR}/${NODE_TGZ}"
 else
@@ -56,7 +56,7 @@ export PATH="$DIR/bin:$PATH"
 # install npm 3 in a temporary directory
 mkdir "$DIR/bin/npm3"
 cd "$DIR/bin/npm3"
-npm install npm@3.1.2
+npm install npm@3.7.5
 cp node_modules/npm/bin/npm .
 
 # export path again with our temporary npm3 directory first,
@@ -153,7 +153,7 @@ rm -rf "$DIR/bin/npm3"
 # Sanity check to see if we're not breaking anything by replacing npm
 INSTALLED_NPM_VERSION=$(cat "$DIR/lib/node_modules/npm/package.json" |
 xargs -0 node -e "console.log(JSON.parse(process.argv[1]).version)")
-if [ "$INSTALLED_NPM_VERSION" != "1.4.28" ]; then
+if [ "$INSTALLED_NPM_VERSION" != "3.7.5" ]; then
   echo "Unexpected NPM version in lib/node_modules: $INSTALLED_NPM_VERSION"
   echo "We will be replacing it with our own version because the bundled node"
   echo "is built using PORTABLE=1, which makes npm look for node relative to"
