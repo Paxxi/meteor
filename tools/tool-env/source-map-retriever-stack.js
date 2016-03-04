@@ -1,4 +1,5 @@
-import sourceMapSupport from 'source-map-support';
+'use strict';
+const sourceMapSupport = require('source-map-support');
 
 // Why this file exists:
 // We have two places in the tool where we need to do source maps:
@@ -17,7 +18,7 @@ const stack = [];
 
 // Add a function to locate source maps; all of the functions are executed in
 // reverse order
-export function push(func) {
+exports.push = function (func) {
   stack.push(func);
 }
 
@@ -66,8 +67,8 @@ sourceMapSupport.install({
 // Default retrievers
 
 // Always fall back to the default in the end
-push(sourceMapSupport.retrieveSourceMap);
+exports.push(sourceMapSupport.retrieveSourceMap);
 
 /* eslint-disable max-len */
-push(require('meteor-babel/register').retrieveSourceMap); // #RemoveInProd this line is removed in isopack.js
+exports.push(require('meteor-babel/register').retrieveSourceMap); // #RemoveInProd this line is removed in isopack.js
 /* eslint-enable max-len */

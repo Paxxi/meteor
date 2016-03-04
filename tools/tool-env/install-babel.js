@@ -4,15 +4,23 @@
 function babelRegister() {
   var meteorBabel = require('meteor-babel');
   var configure = require('meteor-babel/register');
+  var path = require('path');
 
   // It's potentially important that this call to configure comes before
   // we require fs/files.js, just in case the features enabled here are
   // used by fs/files.js.
-  configure({
-    babelOptions: meteorBabel.getDefaultOptions(
-      require('./babel-features.js')
-    )
-  });
+  //configure.reconfigure(
+  //   meteorBabel.getDefaultOptions(
+  //    require('./babel-features.js')
+  //  )
+  //);
+  //meteorBabel.installRuntime();
+  //require('babel-register');
+  var fsPath = path.resolve(__dirname, '..', 'fs');
+  var tPath = path.resolve(__dirname, '..');
+  configure.allowDirectory(fsPath);
+  configure.allowDirectory(__dirname);
+  configure.allowDirectory(tPath);
 
   // This require must come after the require("meteor-babel/register")
   // call above so that fs/files.js will be transpiled by meteor-babel.
@@ -21,9 +29,9 @@ function babelRegister() {
   var toolsPath = files.pathDirname(toolEnvPath);
   var meteorPath = files.pathDirname(toolsPath);
 
-  configure({
-    sourceMapRootPath: meteorPath
-  });
+  configure.setSourceMapRootPath(
+    meteorPath
+  );
 }
 
 babelRegister(); // #RemoveInProd this line is removed in isopack.js
