@@ -48,6 +48,10 @@ export function findAssignedGlobals(source) {
 
   const assignedGlobals = {};
   // Underscore is not available in this package.
+  if (!globalScope || !globalScope.implicit) {
+    return assignedGlobals;
+  }
+  
   globalScope.implicit.variables.forEach((variable) => {
     assignedGlobals[variable.name] = true;
   });

@@ -1,3 +1,5 @@
+'use strict';
+
 import _ from 'underscore';
 import chalk from 'chalk';
 import child_process from 'child_process';
