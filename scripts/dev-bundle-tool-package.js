@@ -10,7 +10,7 @@ if (process.platform === "win32") {
   // the isolate thread. This problem is a result of antivirus programs messing
   // with the thread counts on Windows.
   // Duplicated in dev-bundle-server-package.js
-  fibersVersion = "https://github.com/meteor/node-fibers/tarball/d519f0c5971c33d99c902dad346b817e84bab001";
+  fibersVersion = "https://github.com/Paxxi/node-fibers/tarball/f5032732f3e7bbb3dba7c8e784ea12117601c821";
 } else {
   fibersVersion = "1.0.10";
 }

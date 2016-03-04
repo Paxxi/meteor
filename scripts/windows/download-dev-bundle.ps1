@@ -29,6 +29,8 @@ if ("$env:USE_TEST_DEV_BUNDLE_SERVER" -ne "") {
 $devbundle_link = $DEV_BUNDLE_URL_ROOT + $TARBALL
 $devbundle_zip = $CHECKOUT_DIR + "\" + $TARBALL
 
+write-host $devbundle_link
+return
 $webclient = New-Object System.Net.WebClient
 $webclient.DownloadFile($devbundle_link, $devbundle_zip)
 
@@ -43,4 +45,3 @@ Move-Item  $downloaded_path $target_path
 
 Remove-Item -Recurse -Force $downloaded_tmp
 Remove-Item -Force $devbundle_zip
-

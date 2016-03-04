@@ -1,7 +1,7 @@
 @echo off
 
-set MSBUILD="%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe"
-
+rem set MSBUILD="%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe"
+call "%VS140COMNTOOLS%\..\..\vc\vcvarsall.bat"
 
 IF "%1"=="" GOTO :BUILD
 IF "%1"=="clean" GOTO :CLEAN
@@ -18,7 +18,7 @@ popd
 rem GOTO :Installer
 
 echo Building custom action collection 32-bit library (WiXHelper project)
-%MSBUILD% WiXHelper\WiXHelper.vcxproj /t:Rebuild /p:Configuration="Release" /p:Platform=Win32 /p:DefineConstants="TRACE" /clp:ErrorsOnly
+msbuild.exe WiXHelper\WiXHelper.vcxproj /t:Rebuild /p:Configuration="Release" /p:Platform=Win32 /p:DefineConstants="TRACE" /clp:ErrorsOnly
 if %errorlevel% neq 0 (
 	echo Build failed.
 	rem pause
@@ -39,7 +39,7 @@ rem )
 :Installer
 
 echo Building Meteor installer package...
-%MSBUILD% MeteorSetup.sln /t:Rebuild /p:Configuration="Release" /p:Platform="x86" /p:DefineConstants="TRACE" /clp:ErrorsOnly
+msbuild.exe MeteorSetup.sln /t:Rebuild /p:Configuration="Release" /p:Platform="x86" /p:DefineConstants="TRACE" /clp:ErrorsOnly
 if %errorlevel% neq 0 (
 	echo Build failed
 	rem pause
@@ -87,6 +87,3 @@ REM *****************************************************************
 :DeleteDir
 rd %1% /q/s 2>nul 1>nul
 goto :EOF
-
-
-

@@ -14,7 +14,7 @@
 #pragma once
 
 #include <windows.h>
-#include <gdiplus.h>
+//#include <gdiplus.h>
 #include <msiquery.h>
 #include <objbase.h>
 #include <shlobj.h>

@@ -2,8 +2,8 @@
 # use 32bit by default
 $PLATFORM = "windows_x86"
 $MONGO_VERSION = "2.6.7"
-$NODE_VERSION = "0.10.41"
-$NPM_VERSION = "1.4.9"
+$NODE_VERSION = "5.7.1"
+$NPM_VERSION = "3.7.5"
 
 # take it form the environment if exists
 if (Test-Path env:PLATFORM) {
@@ -34,20 +34,20 @@ $shell = New-Object -com shell.application
 
 # download node
 # same node on 32bit vs 64bit?
-$node_link = "http://nodejs.org/dist/v${NODE_VERSION}/node.exe"
+$node_link = "http://nodejs.org/dist/v${NODE_VERSION}/win-x86/node.exe"
 $webclient.DownloadFile($node_link, "$DIR\bin\node.exe")
 
 # download initial version of npm
-$npm_zip = "$DIR\bin\npm.zip"
-$npm_link = "https://nodejs.org/dist/npm/npm-${NPM_VERSION}.zip"
-$webclient.DownloadFile($npm_link, $npm_zip)
+#$npm_zip = "$DIR\bin\npm.zip"
+#$npm_link = "https://nodejs.org/dist/npm/npm-${NPM_VERSION}.zip"
+#$webclient.DownloadFile($npm_link, $npm_zip)
 
-$zip = $shell.NameSpace($npm_zip)
-foreach($item in $zip.items()) {
-  $shell.Namespace("$DIR\bin").copyhere($item, 0x14) # 0x10 - overwrite, 0x4 - no dialog
-}
+#$zip = $shell.NameSpace($npm_zip)
+#foreach($item in $zip.items()) {
+  #$shell.Namespace("$DIR\bin").copyhere($item, 0x14) # 0x10 - overwrite, 0x4 - no dialog
+#}
 
-rm -Recurse -Force $npm_zip
+#rm -Recurse -Force $npm_zip
 
 # add bin to the front of the path so we can use our own node for building
 $env:PATH = "${DIR}\bin;${env:PATH}"
@@ -55,7 +55,7 @@ $env:PATH = "${DIR}\bin;${env:PATH}"
 mkdir "${DIR}\bin\npm3"
 cd "${DIR}\bin\npm3"
 echo "{}" | Out-File package.json -Encoding ascii # otherwise it doesn't install in local dir
-npm install npm@3.1.2
+npm install npm@3.7.5
 
 # add bin\npm3 to the front of the path so we can use npm 3 for building
 $env:PATH = "${DIR}\bin\npm3;${env:PATH}"
@@ -79,7 +79,7 @@ npm install
 npm shrinkwrap
 
 mkdir -Force "${DIR}\server-lib\node_modules"
-cmd /c robocopy "${DIR}\b\t\node_modules" "${DIR}\server-lib\node_modules" /e /nfl /ndl
+robocopy "${DIR}\b\t\node_modules" "${DIR}\server-lib\node_modules" /e /nfl /ndl
 
 mkdir -Force "${DIR}\etc"
 Move-Item package.json "${DIR}\etc\"
@@ -89,9 +89,9 @@ mkdir -Force "${DIR}\b\p"
 cd "${DIR}\b\p"
 node "${CHECKOUT_DIR}\scripts\dev-bundle-tool-package.js" | Out-File -FilePath package.json -Encoding ascii
 npm install
-cmd /c robocopy "${DIR}\b\p\node_modules" "${DIR}\lib\node_modules" /e /nfl /ndl
+robocopy "${DIR}\b\p\node_modules" "${DIR}\lib\node_modules" /e /nfl /ndl
 cd "$DIR"
-cmd /c rmdir "${DIR}\b" /s /q
+rm -recurse -force "${DIR}\b"
 
 cd "$DIR"
 mkdir "$DIR\mongodb"
@@ -130,7 +130,7 @@ echo "${BUNDLE_VERSION}" | Out-File .bundle_version.txt -Encoding ascii
 cd "$DIR\.."
 
 # rename the folder with the devbundle
-cmd /c rename "$DIR" "dev_bundle_${PLATFORM}_${BUNDLE_VERSION}"
+mv "$DIR" "dev_bundle_${PLATFORM}_${BUNDLE_VERSION}"
 
 cmd /c 7z.exe a -ttar dev_bundle.tar "dev_bundle_${PLATFORM}_${BUNDLE_VERSION}"
 cmd /c 7z.exe a -tgzip "${CHECKOUT_DIR}\dev_bundle_${PLATFORM}_${BUNDLE_VERSION}.tar.gz" dev_bundle.tar
