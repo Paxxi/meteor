@@ -11,7 +11,7 @@ var EXITING_MESSAGE =
   // Exported so that ./client.js can know what to expect.
   exports.EXITING_MESSAGE = "Shell exiting...";
 
-var Promise = require("meteor-promise");
+//var Promise = require("meteor-promise");
 // Only require("fibers") if somehow Promise.Fiber is not yet defined.
 Promise.Fiber = Promise.Fiber || require("fibers");
 

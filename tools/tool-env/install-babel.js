@@ -1,3 +1,4 @@
+'use strict';
 // This file exists because it is the file in the tool that is not automatically
 // transpiled by Babel
 
@@ -42,10 +43,10 @@ require("meteor-ecmascript-runtime");
 
 // Install a global ES2015-compliant Promise constructor that knows how to
 // run all its callbacks in Fibers.
-global.Promise = require('meteor-promise');
+//global.Promise = require('meteor-promise');
 
 // Allow all Promise callbacks to be run in a Fiber.
-global.Promise.Fiber = require('fibers');
+Promise.Fiber = require('fibers');
 
 // Include helpers from NPM so that the compiler doesn't need to add boilerplate
 // at the top of every file
