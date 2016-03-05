@@ -25,7 +25,7 @@ var packageJson = {
     npm: "3.7.5",
     fibers: fibersVersion,
     "meteor-babel": "0.8.1",
-    "meteor-promise": "0.5.1",
+    "meteor-promise": "https://github.com/Paxxi/promise/tarball/69b8421a50ebcc2bec9b7d369846565ee16c3b90",
     // For various ES2015 polyfills, such as Map and Set.
     "meteor-ecmascript-runtime": "0.2.6",
     // Not yet upgrading Underscore from 1.5.2 to 1.7.0 (which should be done
